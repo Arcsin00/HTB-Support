@@ -1,6 +1,6 @@
-**In this walkthrough I will detail the steps that I took to gain root access to the Hack The Box Support machine.**
+**In this walkthrough I will detail the steps that I took to gain root access to the Hack The Box Support machine (retired).**
 
-### Enumeration
+## Enumeration
 
 I will begin by enumerating TCP ports on the machine with NMAP using the following switches:
 
@@ -115,18 +115,7 @@ Static Code Review
 
 Once we have the UserInfo.exe binary on our host system we can move it to a windows VM and inspect it with .NET reflector. In the LDAP query class we find an encoded password and a function used to encode it. We will need to reverse engineer this function and write a bit of python to decode the password.
 
-![internal class Protected 
-// Fields 
-private static string enc_password = "ONv32PTwgYjzgg/8j5TbmvPd3e7VVhtVW/yuPsy076,'Y+UIg3E"; 
-private static by-teo key = 
-// Methods 
-public static string getPasswordO 
-byte[] buffer = 
-byte[] bytes = buffer; 
-for (inti = O; i < buffer.Length; i++) 
-bytes[i] = (byte) ((buffer[i] key[i % key.Length]) Dxdf); 
-return Encoding.DefauIt.GetString(bytes); 
-Collapse Methods ](api/images/ypRdr7iC2xXt/image.png)
+![image](https://user-images.githubusercontent.com/110564012/235828131-3dbab6ac-8028-48b2-8340-fef0d818967b.png)
 
 We will run the following code in pycharm which will return the decoded password.
 
@@ -149,7 +138,7 @@ if __name__ == '__main__':
 	main()
 ```
 
-The decoded password below:
+The decoded password:
 
 ```text-plain
 nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz
@@ -237,7 +226,7 @@ Sharphound: [https://github.com/BloodHoundAD/BloodHound/tree/master/Collectors](
 
 Bloodhound: [https://github.com/BloodHoundAD/BloodHound/releases](https://github.com/BloodHoundAD/BloodHound/releases)
 
-As we wont be using evasion techniques running sharphound on the target is simply a matter of uploading the binary to our target using EvilWinRM and executing it. Bloodhound will be used on our local machine to visually graph our target environment using the info we collected with sharphound. This takes a bit of setup which I will not cover here, I would recommend using this guide to complete the initial Neo4j and Bloodhound setup: [https://github.com/duncandw/Howto-Install-neo4j-and-BloodHound-on-Ubuntu](https://github.com/duncandw/Howto-Install-neo4j-and-BloodHound-on-Ubuntu)
+As we wont be using evasion techniques running sharphound on the target is simply a matter of uploading the binary to our target using our EvilWinRM shell and executing it. Bloodhound will be used on our local machine to visually graph our target environment using the info we collected with sharphound. This takes a bit of setup which I will not cover here, I would recommend using this guide to complete the initial Neo4j and Bloodhound setup: [https://github.com/duncandw/Howto-Install-neo4j-and-BloodHound-on-Ubuntu](https://github.com/duncandw/Howto-Install-neo4j-and-BloodHound-on-Ubuntu)
 
 ```text-plain
 *Evil-WinRM* PS C:\Users\support\Documents> upload /home/kali/Desktop/HTB/Machines/support/SharpHound.exe
@@ -273,7 +262,7 @@ C:\Users\support\Documents> download 20230403164937_BloodHound.zip
 
 Back on our local machine we will open bloodhound in a browser and simply drag the zip file in and drop it. Use the queries in the menu to enumerate the AD environment and discover relationships between accounts. 
 
-![](api/images/DuBLFIbDdzDp/image.png)
+![image](https://user-images.githubusercontent.com/110564012/235828234-8c481606-ed7f-4b32-b7b6-c99ab951a037.png)
 
 Constrained Delegation Attack
 -----------------------------
@@ -343,7 +332,7 @@ With Rubeus, generate the new fake computer object password hashes. Since we cre
 [*]       des_cbc_md5          : 836D4C85A4F23B62
 ```
 
-We are after the value in the ‘aes256\_cts\_hmac\_sha1’ field. 
+We are looking for the value in the ‘aes256\_cts\_hmac\_sha1’ field. 
 
 Kerberos Ticket Impersonation
 -----------------------------
@@ -399,4 +388,4 @@ C:\Windows\system32>type c:\users\administrator\desktop\root.txt
 cf32650209795cc4a03e8e2b42c646b1
 ```
 
-Congratulations on completing this machine! When in doubt try harder.
+Congratulations on completing this machine!
