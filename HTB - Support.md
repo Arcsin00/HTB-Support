@@ -4,7 +4,7 @@
 
 I will begin by enumerating TCP ports on the machine with NMAP using the following switches:
 
-*   \-sS: syn scan, this is quick and stealthy as it does not complete the TCP connection. It can also differentiation between open, closed, and filtered states of a port. I will need to be run with sudo privileges as it requires raw packet manipulation.
+*   \-sS: syn scan, this is quick and stealthy as it does not complete the TCP connection. It can also differentiation between open, closed, and filtered states of a port. It will need to be run with sudo privileges as it requires raw packet manipulation.
 *   \-A: enables aggressive scanning and will enable OS detection (-O), version scanning (-sV), script scanning (-sC), and traceroute (-traceroute).
 *   \-p-: will scan all ports on the host.
 *   \-T4: timing template 4 is a predefined packet limit per millisecond. Template 4 is considered aggressive.
