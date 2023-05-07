@@ -1,4 +1,3 @@
-# Photobomb
 Machine Name: Photobomb
 -----------------------
 
@@ -7,6 +6,8 @@ Machine Name: Photobomb
 *   **Difficulty:** Easy
 *   **Date Owned:** 11/23/2022 
 *   **IP Assigned:** 10.10.11.182
+
+<br>
 
 Enumeration:
 ------------
@@ -73,7 +74,7 @@ echo ‘10.10.11.182 photobomb.htb’ | sudo tee -a /etc/hosts
 
 The webpage does not seem to offer much but it seems a note has been left by an administrator in a javascript file which can be viewed in the debugger tab.
 
-![](Photobomb/image.png)
+![image](https://user-images.githubusercontent.com/110564012/236699046-a9ed3d7f-b42d-4e04-90a6-509787216f79.png)
 
 if we navigate to the page in the note we find some functionality that allows a user to download a photo from the web server. Lets fire up Burp Suite and intercept this traffic.
 
@@ -82,7 +83,7 @@ Burp Suite Command Injection
 
 Click on the Proxy tab in Burp Suite and click Open Browser. Paste in the URL we found in the dev comment above. Now select the ‘Intercept is off’ button which will flip it to on. With intercept on click on the download button at the bottom of the webpage to capture the request which will look like the image below.
 
-![](Photobomb/1_image.png)
+![image](https://user-images.githubusercontent.com/110564012/236699081-401557e9-a82b-47ae-9f1d-93127f212f9b.png)
 
 Lets try to inject some code into one of these parameters and try to execute a reverse shell. I will use the python payload below. You will need to replace the ‘x’ characters with your IP, and specify a port you will be listening on.
 
@@ -99,7 +100,7 @@ listening on [any] 4444 ...
 
 Now that the payload is prepared and we are listening for a connection on the appropriate port go back to Burp Suite, right click anywhere in the request we intercepted earlier and select ‘Send to Repeater’. Then go to the Repeater tab which should be highlighted and paste the URL encoded payload into the filetype parameter. The response should hang which is always a promising sign, then we see a new connection appear on our listener which means we got a shell!
 
-![](Photobomb/2_image.png)
+![image](https://user-images.githubusercontent.com/110564012/236699107-41c34ea0-9a2b-41ee-87f8-267244380c0f.png)
 
 Reverse Shell Access
 --------------------
