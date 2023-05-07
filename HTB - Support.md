@@ -1,4 +1,12 @@
-**In this walkthrough I will detail the steps that I took to gain root access to the Hack The Box Support machine (retired).**
+## Machine name: Support
+
+* **Status:** Retired
+* **OS:** Windows
+* **Difficulty:** Easy
+* **Date Owned:** 11/23/2022 
+* **IP Assigned:** 10.10.11.174
+
+<br>
 
 ## Enumeration
 
