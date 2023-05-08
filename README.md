@@ -15,3 +15,9 @@
 * Medium:
 * Hard:
 * Insane:
+
+<br>
+
+# HTB walkthroughs for active machines
+These need to be downloaded and unlocked with the root flag of the machine.
+* [Soccer](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Soccer.pdf)
