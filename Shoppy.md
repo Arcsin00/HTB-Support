@@ -1,4 +1,3 @@
-# Shoppy
 Machine name: Shoppy
 --------------------
 
@@ -68,8 +67,7 @@ First I'll add the domain to my hosts file and check out whats being hosted on p
 echo "10.10.11.180   shoppy.htb" | sudo tee -a /etc/hosts
 ```
 
-![SHOPPY 
-342 06 08 1 ](Shoppy/image.png)
+![image](https://user-images.githubusercontent.com/110564012/236976256-a1698f91-4c42-4a4a-badb-bb8d14296170.png)
 
 Not too much to see here. I'll use gobuster to do some sub-directory enumeration.
 
@@ -102,7 +100,7 @@ Progress: 4830 / 4990 (96.79%)==================================================
 
 Next I'll check what the admin page looks like.
 
-![](Shoppy/1_image.png)
+![image](https://user-images.githubusercontent.com/110564012/236976293-49badcd4-9af8-4f9f-abd3-f4e9964cf317.png)
 
 SQL Injection
 -------------
@@ -117,7 +115,7 @@ This is the payload that finally worked: 
 
 We are presented with a webpage with some info about the products as well as some search functionality. 
 
-![](Shoppy/2_image.png)
+![image](https://user-images.githubusercontent.com/110564012/236976329-a853d70a-2e84-4dd9-a6d7-82d6569d0652.png)
 
 Test the same payload in the seach field and see if it works there too. which returns the following json export of all users. 
 
@@ -212,7 +210,7 @@ echo '10.10.11.180 mattermost.shoppy.htb' | sudo tee -a /etc/hosts
 
 mattermost.shoppy.htb presents us with another login page so lets try the josh creds on this page. After a bit of poking around I found a message from another user with cleartext creds in it.
 
-![](Shoppy/3_image.png)
+![image](https://user-images.githubusercontent.com/110564012/236976386-4a357209-d744-41a1-bb10-9dff09a71db0.png)
 
 Foothold
 --------
