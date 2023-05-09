@@ -14,6 +14,7 @@ https://app.hackthebox.com/machines
 * ## Linux:
 * Easy:
   * [Photobomb](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Photobomb.md)
+  * [Shoppy](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Shoppy.md)
 * Medium:
 * Hard:
 * Insane:
