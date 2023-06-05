@@ -24,3 +24,4 @@ https://app.hackthebox.com/machines
 # Active machines
 These need to be downloaded and unlocked with the root flag of the machine.
 * [Soccer](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Soccer.pdf)
+* [Busqueda](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Busqueda.pdf)
