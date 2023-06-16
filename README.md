@@ -26,3 +26,9 @@ In order to comply with HTB disclosure rules these are password protected with t
 * [Soccer](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Soccer.pdf)
 * [Busqueda](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Busqueda.pdf)
 * [Stocker](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Stocker.pdf)
+
+<br>
+
+# Challenges
+* ## Crypto:
+* [BabyEncryption]()
