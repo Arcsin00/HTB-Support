@@ -6,7 +6,7 @@ https://app.hackthebox.com/machines
 * Easy:
   * [Photobomb](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Photobomb.md)
   * [Shoppy](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Shoppy.md)
-  * [Soccer](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Soccer.pdf)
+  * [Soccer](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Soccer.md)
  
 ### Windows:
 * Easy:
