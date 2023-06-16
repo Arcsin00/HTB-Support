@@ -27,3 +27,5 @@ In order to comply with HTB disclosure rules these are password protected with t
 # Challenges
 * ### Crypto:
   * [BabyEncryption](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/BabyEncryption.md)
+* ### Reversing:
+  * [BehindTheScenes](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/BehindTheScenes.md)
