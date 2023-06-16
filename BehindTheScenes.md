@@ -59,7 +59,8 @@ The command line I/O prompt is listed here './challenege <password> and the line
 
 Open the file in Ghidra and look for the same prompt string.
 
-![](BehindTheScenes/image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/dedbf94d-079a-418b-8d35-b1f3dbec3841)
+
 
 Under the prompt string there are lines that look like they did not decompile. At the end of the text values there are a few characters that spell out HTB{%s} vertically. In the list of strings the flag was the line after the prompt, maybe the characters between the prompt and flag is the password for the program!?
 
