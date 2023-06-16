@@ -1,7 +1,7 @@
 Machine name: Soccer
 --------------------
 
-*   **Status:** Active
+*   **Status:** Retired
 *   **OS:** Linux
 *   **Difficulty:** Easy
 *   **Date Owned:** 4/3/2023 
@@ -38,7 +38,8 @@ Since port 80 is open we'll start by adding the domain to hosts and look at what
 echo ‘10.10.11.194 soccer.htb' | sudo tee -a /etc/hosts
 ```
 
-![](Soccer/image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/c65bebc8-16ca-4bfd-826f-6a823e11b318)
+
 
 There dont seem to be any loose threads to pull at on this page so lets look for sub-pages that might have more functionality. For this well use a tool called gobuster which is used for directory and subdomain brute-forcing written in golang.
 
@@ -66,14 +67,16 @@ Progress: 19852 / 19967 (99.42%)================================================
 
 Gobuster found the subdomain /tiny so lets navigate there in the web browser. 
 
-![](Soccer/1_image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/45800b3e-851b-44f3-8dcb-787c6d2806b2)
+
 
 File Upload
 -----------
 
 At http://soccer.htb/tiny/  we find a login page. After a bit a googling we find out that Tiny is a simple PHP web based file manager and the default credentials are admin:admin@123 and user:12345. Lets try these and see if they have been changed yet. 
 
-![](Soccer/2_image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/a4f67061-3ff7-478f-b506-123f4654af3e)
+
 
 And there we have it, we're logged in as admin! After some poking around it seems we can create and upload files in the tiny/uploads directory. Since we know Tiny is PHP based so lets grab a PHP reverse shell from payloadallthethings github. [https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md)
 
@@ -137,11 +140,13 @@ echo ‘10.10.11.194 soc-player.soccer.htb’ | sudo tee -a /etc/hosts
 
 At the webpage we see a banner offering a free ticket when you sign up or login. Maybe we can take advantage of this functionality. 
 
-![](Soccer/3_image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/82198f29-2254-4108-871a-8bd9b7a2f3ae)
+
 
 After signing up with fake credentials and logging in we are presented with a form for our free ticket. Use CTRL-U to view the source code and take a look at the script behind this functionality. 
 
-![](Soccer/4_image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/2fedf805-9573-485e-a54d-eb60e4094260)
+
 
 SQL Injection
 -------------
