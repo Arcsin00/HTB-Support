@@ -115,11 +115,13 @@ tar: Error is not recoverable: exiting now
 
 Those pictures look like some low hanging fruit that we can check quickly.
 
-![](Cat/image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/e1b70bcf-26ac-4226-8a66-d5058f55c9d1)
+
 
 Most of them are kittens, but the image of the guy with a censored face stands out so take a closer look at that one.
 
-![](Cat/1_image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/ff7d1cd8-4e52-4de2-9d09-2b6abb57a108)
+
 
 Upon closer inspection of the document it appears to be a flag!
 
