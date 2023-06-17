@@ -30,3 +30,5 @@ In order to comply with HTB disclosure rules these are password protected with t
   * [TheLastDance](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/TheLastDance.md)
 * ### Reversing:
   * [BehindTheScenes](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/BehindTheScenes.md)
+* ### Mobile:
+  * [Cat](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Cat.md)
