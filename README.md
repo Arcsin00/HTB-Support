@@ -7,6 +7,7 @@ https://app.hackthebox.com/machines
   * [Photobomb](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Photobomb.md)
   * [Shoppy](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Shoppy.md)
   * [Soccer](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Soccer.md)
+  * [Stocker](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Stocker.md)
  
 ### Windows:
 * Easy:
@@ -16,19 +17,14 @@ https://app.hackthebox.com/machines
 <br>
 
 # Active machines
-In order to comply with HTB disclosure rules these are password protected with the machines root flag. GitHub is not able to interact with password protected pdfs so you'll need to download these before you can unlock them. These will be added to the section above when the machine is retired.
-### Linux:
-* Easy
+Will be released upon retirement.
   * [Busqueda](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Busqueda.pdf)
-  * [Stocker](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Stocker.pdf)
 
 <br>
 
 # Challenges
-* ### Crypto:
-  * [BabyEncryption](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/BabyEncryption.md)
-  * [TheLastDance](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/TheLastDance.md)
-* ### Reversing:
-  * [BehindTheScenes](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/BehindTheScenes.md)
-* ### Mobile:
-  * [Cat](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Cat.md)
+* ### Retired
+  *
+
+* ### Active
+  * 
