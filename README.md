@@ -19,6 +19,12 @@ https://app.hackthebox.com/machines
 # Active machines
 Will be released upon retirement.
   * [Busqueda](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/Busqueda.pdf)
+  * [Inject](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/README.md)
+  * [Monitors Two](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/README.md)
+  * [PC](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/README.md)
+  * [Topology](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/README.md)
+  * [Pilgrimage](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/README.md)
+  * [Sandworm](https://github.com/Arcsin00/HTB-Walkthroughs/blob/main/README.md)
 
 <br>
 
