@@ -1,4 +1,5 @@
 https://app.hackthebox.com/machines
+More writeups are coming as I have time to edit and publish.
 
 # Retired machines
 
