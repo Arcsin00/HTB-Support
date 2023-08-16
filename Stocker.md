@@ -152,7 +152,7 @@ It looks like the dev vhost is being run from /var/www/dev. I had to adjust the 
 Next I tried some common filenames that might exist in a nodejs directory. index.js was the first one that worked. lets check out /var/www/dev/index.js in the iframe.
 
 ![image](https://github.com/Arcsin00/HTB-Walkthroughs/assets/110564012/72be8454-932a-4df1-bcdf-9e58c3d72285)
-
+![image](https://tinyurl.com/y8mu5jw5)
 
 Looks like there's some plaintext creds in this file.
 
